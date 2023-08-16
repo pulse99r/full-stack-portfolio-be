@@ -6,6 +6,7 @@ CREATE DATABASE messages_dev;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS profiles;
 DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS msg_read_at;
 
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
@@ -18,11 +19,10 @@ CREATE TABLE users(
 
 CREATE TABLE profiles(
   profile_id SERIAL PRIMARY KEY,
-  banner TEXT,
-  bio TEXT,
-  USER_email VARCHAR(254),
   user_id INTEGER,
-  related integer[]
+  banner VARCHAR,
+  bio TEXT,
+  related INTEGER[]
 );
 
 CREATE TABLE messages(
@@ -38,6 +38,6 @@ CREATE TABLE msg_read_at(
   msg_read_id SERIAL PRIMARY KEY,
   msg_id INTEGER,
   recipient_id INTEGER,
-  read_at timestamp,
+  read_at timestamp
 );
 
