@@ -34,10 +34,12 @@ CREATE TABLE messages(
   recipient_id INTEGER[],
   reply_to INTEGER
 );
+
 CREATE TABLE msg_read_at(
   msg_read_id SERIAL PRIMARY KEY,
   msg_id INTEGER,
   recipient_id INTEGER,
-  read_at timestamp
+  msg_read_at timestamp,
+  msg_read BOOLEAN
 );
 
