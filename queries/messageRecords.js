@@ -4,46 +4,57 @@ const db = require("../db/dbConfig.js");
 
 // Get all Messages
 const getAllMessages = async () => {
+  
   try {
-    const allMessages = await db.any("SELECT sender_id, topic, sent_at, reply_to, f_name, l_name, recipient_id from messages INNER JOIN users ON sender_id = id");
+    const allMessages = await db.any("SELECT * FROM messages");
+    // const allMessages = await db.any("SELECT msg_id, sender_id, topic, sent_at, reply_to, f_name, l_name, recipient_id from messages INNER JOIN users ON messages.sender_id = users.id");
     return allMessages;
   } catch (error) {
     return error;
   }
 };
 
+// Get one message
+const getMessage = async (msg_id) => {
+  try {
+    const oneMessage = await db.one("SELECT * FROM messages WHERE msg_id=$1", msg_id);
+    return oneMessage;
+  } catch (error) {
+    return error;
+  }
+};
+
 // Get all Users
-// const getAllUsers = async () => {
-//   try {
-//     const allUsers = await db.any("SELECT id, f_name, l_name, email from users");
-//     return allUsers;
-//   } catch (error) {
-//     return error;
-//   }
-// };
+const getAllUsers = async () => {
+  try {
+    const allUsers = await db.any("SELECT id, f_name, l_name, email from users");
+    return allUsers;
+  } catch (error) {
+    return error;
+  }
+};
 
-// //Get one message
-// const getMessage = async (id) => {
-//   try {
-//     const oneMessage = await db.one("SELECT * FROM recipes WHERE id=$1", id);
-//     return oneMessage;
-//   } catch (error) {
-//     return error;
-//   }
-// };
-
-// // CREATE message route
-// const createMessage = async (message) => {
-//   try {
-//       const newMessage =  await db.one(
+// Get one Users
+const getUser = async (id) => {
+  try {
+    const oneUser = await db.one("SELECT * FROM users WHERE id=$1", id);
+    return oneUser;
+  } catch (error) {
+    return error;
+  }
+};
+// // CREATE/POST message route
+const createMessage = async (message) => {
+  try {
+      const newMessage =  await db.one(
         
-//         "INSERT INTO recipes (name, img, ingredients, instructions, cooking_time, nationality, is_favorite) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING * ", [recipes.name, recipes.img, recipes.ingredients, recipes.instructions, recipes.cooking_time, recipes.nationality, recipes.is_favorite]
-//       );
-//       return newMessage
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+        "INSERT INTO messages (f_name, l_name, img, ingredients, instructions, cooking_time, nationality, is_favorite) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING * ", [recipes.name, recipes.img, recipes.ingredients, recipes.instructions, recipes.cooking_time, recipes.nationality, recipes.is_favorite]
+      );
+      return newMessage
+  } catch (error) {
+    throw error;
+  }
+};
 
 // const deleteRecipe = async (id) => {
 //   try {
@@ -71,8 +82,9 @@ const getAllMessages = async () => {
 
 module.exports = {
   getAllMessages,
-  getAllUsers
-  // getMessage,
+  getMessage,
+  getAllUsers,
+  getUser,
   // createMessage,
 };
   // , createMessage, deleteMessage, updateMessage};

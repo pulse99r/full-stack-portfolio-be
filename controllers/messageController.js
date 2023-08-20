@@ -1,24 +1,21 @@
 const express = require("express");
-const messageRecords = express.Router();
+const messages = express.Router();
 
 
 const {
   getAllMessages,
   getAllUsers,
-  // getMessage,
-  // createMessage,
+  getMessage,
+  createMessage,
   // deleteMessage,
   // updateMessage,
 } = require("../queries/messageRecords");
 
 
 // * * * ROUTES * * *
-// app.get("/", (req, res) => {
-//   res.send(`Welcome to <a href='http://localhost:3347/'>Kenti's Messaging</a>`);
-// });
 
 // INDEX ALL MESSAGES
-messageRecords.get("/messages", async (req, res) => {
+messages.get("/", async (req, res) => {
   const allMessages = await getAllMessages();
   if (allMessages[0]) {
     res.status(200).json(allMessages);
@@ -27,16 +24,31 @@ messageRecords.get("/messages", async (req, res) => {
   }
 });
 
-// INDEX ALL USERS
-// messageRecords.get("/users", async (req, res) => {
-//   const allUsers = await getAllUsers();
-//   if (allUsers[0]) {
-//     res.status(200).json(allUsers);
-//   } else {
-//     res.status(500).json({ error: "server error" });
-//   }
-// });
 
-module.exports = {
-  messageRecords
-};
+// SHOW One Message
+messages.get("/:id", async (req, res) => {
+  console.log("--- getting single message id=1 ---")
+  const id = req.params.id;
+  const oneMessage = await getMessage(id);
+  if (oneMessage) {
+    res.status(200).json(oneMessage);
+  } else {
+    res.status(500).json({ error: "server error" });
+  }
+});
+
+
+// CREATE New Message
+messages.get("/:id", async (req, res) => {
+  console.log("--- getting single message id=1 ---")
+  const id = req.params.id;
+  const oneMessage = await getMessage(id);
+  if (oneMessage) {
+    res.status(200).json(oneMessage);
+  } else {
+    res.status(500).json({ error: "server error" });
+  }
+});
+
+
+module.exports = messages;

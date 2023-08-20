@@ -1,7 +1,10 @@
+/* *** File not being used *** */
+/*
 const db = require("../db/dbConfig.js");
 
-// Get all Users
+// Get all Users 
 const getAllUsers = async () => {
+  console.log("2nd getting all users!!")
   try {
     const allUsers = await db.any("SELECT f_name, l_name, email from users");
     return allUsers;
@@ -11,3 +14,5 @@ const getAllUsers = async () => {
 };
 
 module.exports = { getAllUsers }
+
+*/

@@ -11,13 +11,16 @@ app.use(express.json());
 
 // // * * * ROUTES * * *
 app.get("/", (req, res) => {
-  res.send(`Welcome to <a href='http://localhost:3347/'>Kenti's Messaging</a>`);
+  res.send(`Welcome to <a href='http://localhost:3347/users/'>Kenti's Messaging</a>`);
 });
 
-// Recipes ROUTES
+// Messages ROUTES
 const messageController = require("./controllers/messageController.js");
 app.use("/messages", messageController);
-app.use("/users", messageController);
+
+//Users Routes
+const userController = require("./controllers/userController.js");
+app.use("/users", userController)
 
 
 
