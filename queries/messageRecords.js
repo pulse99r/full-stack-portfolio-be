@@ -2,6 +2,7 @@
 
 const db = require("../db/dbConfig.js");
 
+/* - - - - MESSAGE QUIRES - - - -  */
 // Get all Messages
 const getAllMessages = async () => {
   
@@ -24,6 +25,22 @@ const getMessage = async (msg_id) => {
   }
 };
 
+// CREATE/POST message route
+const createMessage = async (message) => {
+  console.log("create Message entered")
+  console.log("* * * Message * * *")
+  console.log(message)
+  try {
+      const newMessage =  await db.one(
+        "INSERT INTO messages (topic, msg_body, sender_id, recipient_id, reply_to) VALUES($1, $2, $3, $4, $5) RETURNING *", [message.topic, message.msg_body, message.sender_id, message.recipient_id, message.reply_to]
+      );
+      return newMessage
+  } catch (error) {
+    throw error;
+  }
+};
+
+// - - - - - - USER QUERIES - - - - -
 // Get all Users
 const getAllUsers = async () => {
   try {
@@ -43,18 +60,18 @@ const getUser = async (id) => {
     return error;
   }
 };
-// // CREATE/POST message route
-const createMessage = async (message) => {
+
+const createUser = async (user) => {
   try {
-      const newMessage =  await db.one(
-        
-        "INSERT INTO messages (f_name, l_name, img, ingredients, instructions, cooking_time, nationality, is_favorite) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING * ", [recipes.name, recipes.img, recipes.ingredients, recipes.instructions, recipes.cooking_time, recipes.nationality, recipes.is_favorite]
+      const newUser =  await db.one(
+        "INSERT INTO messages (f_name, l_name, email, password_hash) VALUES($1, $2, $3, $4) RETURNING * ", [user.f_name, user.l_name, user.email, user.password_hash, user.create_date]
       );
-      return newMessage
+      return newUser
   } catch (error) {
     throw error;
   }
 };
+
 
 // const deleteRecipe = async (id) => {
 //   try {
@@ -85,6 +102,6 @@ module.exports = {
   getMessage,
   getAllUsers,
   getUser,
-  // createMessage,
+  createMessage,
 };
   // , createMessage, deleteMessage, updateMessage};
