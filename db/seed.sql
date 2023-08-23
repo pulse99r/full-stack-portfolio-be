@@ -1,15 +1,15 @@
 \c messages_dev
 
-INSERT INTO users (f_name, l_name, email, password_hash) VALUES
-  ('Kenti','Johnson','raymondjohnson@pursuit.org','lazyBird!@3&Wi'),
-  ('Bugs','Bunny','bbunny@disney.com','disney'),
-  ('Pru','Halliwell','prudencehalliwell@charmed.com','PowerOfThree'),
-  ('Phoebe','Halliwell','phoebehalliwell@charmed.com','PowerOfThree'),
-  ('Piper','Halliwell','piperhalliwell@charmed.com','PowerOfThree'),
-  ('Paige','Halliwell','paigehalliwell@charmed.com','PowerOfThree'),
-  ('Will','Robinson','will@lostinspace.com','robotrobot'),
-  ('Penny','Robinson','penny@lostinspace.com','robotrobot'),
-  ('Daffy','Duck','dduck@disney.com','disney');
+INSERT INTO users (f_name, l_name, email, password_hash,create_date) VALUES
+  ('Kenti','Johnson','raymondjohnson@pursuit.org','lazyBird!@3&Wi', NOW()),
+  ('Bugs','Bunny','bbunny@disney.com','disney',NOW()),
+  ('Pru','Halliwell','prudencehalliwell@charmed.com','PowerOfThree',NOW()),
+  ('Phoebe','Halliwell','phoebehalliwell@charmed.com','PowerOfThree',NOW()),
+  ('Piper','Halliwell','piperhalliwell@charmed.com','PowerOfThree',NOW()),
+  ('Paige','Halliwell','paigehalliwell@charmed.com','PowerOfThree',NOW()),
+  ('Will','Robinson','will@lostinspace.com','robotrobot',NOW()),
+  ('Penny','Robinson','penny@lostinspace.com','robotrobot',NOW()),
+  ('Daffy','Duck','dduck@disney.com','disney',NOW());
 
 INSERT INTO profiles (user_id, banner, bio, related) VALUES
   (1, 'Software Engineer and Guitar Plyer',

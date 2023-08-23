@@ -27,8 +27,8 @@ const getMessage = async (msg_id) => {
 
 // CREATE/POST message route
 const createMessage = async (message) => {
-  console.log("create Message entered")
-  console.log("* * * Message * * *")
+  // console.log("create Message entered")
+  // console.log("* * * Message * * *")
   console.log(message)
   try {
       const newMessage =  await db.one(
@@ -44,7 +44,7 @@ const createMessage = async (message) => {
 // Get all Users
 const getAllUsers = async () => {
   try {
-    const allUsers = await db.any("SELECT id, f_name, l_name, email from users");
+    const allUsers = await db.any("SELECT * from users");
     return allUsers;
   } catch (error) {
     return error;
@@ -54,19 +54,39 @@ const getAllUsers = async () => {
 // Get one Users
 const getUser = async (id) => {
   try {
-    const oneUser = await db.one("SELECT * FROM users WHERE id=$1", id);
+    const oneUser = await db.one("SELECT id, f_name, l_name, email, password_hash, create_date, user_id, banner, bio, related FROM users INNER JOIN profiles ON id = user_id WHERE users.id=$1", id);
+    return oneUser;
+  } catch (error) {
+    return error;
+  }
+};
+// Friends Relationship via profiles;
+const getProfileView = async (id) => {
+  try {
+    const friendsProfile = await db.one("SELECT id AS USER, f_name, l_name, create_date,  banner, bio, related FROM users INNER JOIN profiles ON id = user_id WHERE users.id=$1", id);
     return oneUser;
   } catch (error) {
     return error;
   }
 };
 
+/* Create New User */
 const createUser = async (user) => {
   try {
-      const newUser =  await db.one(
-        "INSERT INTO messages (f_name, l_name, email, password_hash) VALUES($1, $2, $3, $4) RETURNING * ", [user.f_name, user.l_name, user.email, user.password_hash, user.create_date]
+    const newUser =  await db.one(
+      "INSERT INTO users (f_name, l_name, email, password_hash, create_date) VALUES($1, $2, $3, $4, $5) RETURNING * ", [user.f_name, user.l_name, user.email, user.password_hash, user.create_date]
+    );
+    return newUser
+  } catch (error) {
+    throw error;
+  }
+};
+const createProfile = async (useProfile) => {
+  try {
+      const newProfile =  await db.one(
+        "INSERT INTO profiles (user_id, banner, bio, related) VALUES($1, $2, $3, $4) RETURNING * ", [user.user_id, user.banner, user.bio, user.related]
       );
-      return newUser
+      return newProfile
   } catch (error) {
     throw error;
   }
@@ -100,8 +120,10 @@ const createUser = async (user) => {
 module.exports = {
   getAllMessages,
   getMessage,
+  createMessage,
   getAllUsers,
   getUser,
-  createMessage,
+  createUser,
+  createProfile,
 };
   // , createMessage, deleteMessage, updateMessage};

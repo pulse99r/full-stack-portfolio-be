@@ -10,10 +10,10 @@ DROP TABLE IF EXISTS msg_read_at;
 
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
-  f_name TEXT,
-  l_name TEXT,
-  email VARCHAR(254),
-  password_hash TEXT,
+  f_name TEXT NOT NULL,
+  l_name TEXT NOT NULL,
+  email VARCHAR(254) NOT NULL,
+  password_hash TEXT NOT NULL,
   create_date timestamp
 );
 
@@ -27,8 +27,8 @@ CREATE TABLE profiles(
 
 CREATE TABLE messages(
   msg_id SERIAL PRIMARY KEY,
-  topic TEXT,
-  msg_body TEXT,
+  topic TEXT NOT NULL,
+  msg_body TEXT NOT NULL,
   sent_at timestamp,
   sender_id INTEGER,
   recipient_id INTEGER[],
