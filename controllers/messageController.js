@@ -26,8 +26,8 @@ messages.get("/", async (req, res) => {
 
 // SHOW One Message
 messages.get("/:id", async (req, res) => {
-  console.log("--- getting single message id=1 ---")
-  ç
+  const id = req.params.id;
+  console.log("--- getting single message id= --->",id)
   const oneMessage = await getMessage(id);
   if (oneMessage) {
     res.status(200).json(oneMessage);
