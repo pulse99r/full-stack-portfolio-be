@@ -1,32 +1,30 @@
 const express = require("express");
-const users = express.Router();
+const friends = express.Router();
 
 
 const {
-  getAllUsers,
-  getUser,
-  createUser,
-  createProfile
-  // deleteUser,
-  // updateUser,
+  getAllFriends,
+  // getFriend,
+  // connectFriend,
+  // requestFriend
+  // removeFriend,
+ 
 
 } = require("../queries/messageRecords");
 
 
 // * * * ROUTES * * *
 
-// INDEX ALL USERS
-users.get("/", async (req, res) => {
-  console.log("getting all users!")
-  const allUsers = await getAllUsers();
-  if (allUsers[0]) {
-    res.status(200).json(allUsers);
+// INDEX ALL FRIENDS
+friends.get("/", async (req, res) => {
+  console.log("getting all friends!")
+  const allFriends = await getAllFriends();
+  if (allFriends[0]) {
+    res.status(200).json(allFriends);
   } else {
     res.status(500).json({ error: "server error" });
   }
 });
-
-
 // profiles.get("/", async (req, res) => {
 //   console.log("getting all users!")
 //   const allUsers = await getAllUsers();
@@ -50,7 +48,6 @@ users.get("/:id", async (req, res) => {
     res.status(500).json({ error: "server error" });
   }
 });
-
 
 
 /* CREATE/POST USER  */

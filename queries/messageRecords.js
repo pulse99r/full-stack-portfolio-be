@@ -52,6 +52,16 @@ const getAllUsers = async () => {
 };
 
 // Get one Users
+const getAuthorizedUser = async (id) => {
+  try {
+    const oneUser = await db.one("SELECT id, f_name, l_name, email, password_hash, create_date, user_id, banner, bio, related FROM users INNER JOIN profiles ON id = user_id WHERE users.id=$1", id);
+    return oneUser;
+  } catch (error) {
+    return error;
+  }
+};
+
+// Get one Users
 const getUser = async (id) => {
   try {
     const oneUser = await db.one("SELECT id, f_name, l_name, email, password_hash, create_date, user_id, banner, bio, related FROM users INNER JOIN profiles ON id = user_id WHERE users.id=$1", id);
@@ -115,6 +125,8 @@ const createProfile = async (useProfile) => {
 //     return error;
 //   }
 // };
+
+
 
 
 module.exports = {
