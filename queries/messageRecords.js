@@ -71,7 +71,7 @@ const getUser = async (id) => {
   }
 };
 // Friends Relationship via profiles;
-const getProfileView = async (id) => {
+const getFriends = async (id) => {
   try {
     const friendsProfile = await db.one("SELECT id AS USER, f_name, l_name, create_date,  banner, bio, related FROM users INNER JOIN profiles ON id = user_id WHERE users.id=$1", id);
     return oneUser;

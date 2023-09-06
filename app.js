@@ -22,7 +22,9 @@ app.use("/messages", messageController);
 const userController = require("./controllers/userController.js");
 app.use("/users", userController)
 
-
+//Friends Routes
+const friendsController = require("./controllers/friendsController.js");
+app.use("/friends", friendsController)
 
 // 404 PAGE
 app.get("*", (req, res) => {
